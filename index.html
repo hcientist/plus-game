@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <title>➕🕹🎲</title>
+  <style>
+    #plus-container {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      justify-content: center;
+      align-content: center;
+      justify-items: center;
+      align-items: center;
+    }
+
+    #south {
+      grid-row: 3;
+      grid-column: 2;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    .correctness {
+      display: none;
+    }
+
+    .current-outcome {
+      display: inline;
+    }
+
+    input {
+      font-size: 2rem;
+      width: 4rem;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="plus-container">
+    <button id="check">✅</button>
+    <input type="number" name="" id="" class="entry" />
+    <div id="result">
+      <span class="correctness" id="correct">👍</span>
+      <span class="correctness" id="incorrect">🤙</span>
+    </div>
+    <input type="number" name="" id="" class="entry" />
+    <div id="goal"></div>
+    <input type="number" name="" id="" class="entry" />
+    <input type="number" name="" id="south" class="entry" />
+  </div>
+  <script>
+    const checkButton = document.getElementById("check");
+    checkButton.onclick = checkAnswers;
+
+    function checkAnswers(ev) {
+      // If the player’s answers are correct, 
+      //    show the thumbs-up. 
+      //    Schedule the new round to start after 
+      //    a moment’s pause using setTimeout.
+      console.info("clicked check button!", ev);
+
+    }
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * max);
+    }
+
+    // when should this be invoked?
+    function startNewRound() {
+      // 1. clear everything
+      //    erase the input guesses 
+      //    (numbers in adjacent boxes)
+      //    clearThumb
+      clearThumb();
+
+      // get a reference to each of the elements with a class of "entry"
+      const entryElems = document.querySelectorAll(".entry")
+      // debugger;
+      // somehow clear them
+      // console.log("entryElems", entryElems);
+      // console.log("entryElems[0]", entryElems[0]);
+      for (let index = 0; index < entryElems.length; index++) {
+        const element = entryElems[index];
+        element.value = "";
+      }
+      // entryElems[0].value = "";
+      // console.log("entryElems", entryElems);
+
+      // 2. generate a new goal
+      let currentGoal = 3 + getRandomInt(13);
+      console.log(currentGoal);
+
+      // 3. put the goal in the dom
+      // 3a. get a reference to the dom element where the goal should be displayed
+      const goalElem = document.getElementById('goal');
+      console.log(goalElem);
+      goalElem.innerText = currentGoal;
+      // console.log(document.getElementById('goal').innerText);
+
+    }
+
+    // As soon as the user modifies an input, 
+    //    clear the thumb.
+    function clearThumb() {
+      // 1. get the relevant dom element(s)
+      const allTheThumbs = document.querySelectorAll('.correctness');
+
+      // loop over all those elements
+      for (let i = 0; i < allTheThumbs.length; i++) {
+        const element = allTheThumbs[i];
+        // 
+        element.className = 'correctness';
+        // element.cla
+      }
+    }
+
+    startNewRound();
+
+  </script>
+</body>
+
+</html>
